@@ -19,12 +19,15 @@ public class Task {
     public Task() {
     }
 
-    public Task(long id, String title, String description) {
+    public Task(long id, String title, String description, List<PlayerSubmission> submissionList) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.submissionList = submissionList;
     }
 
+    @OneToMany(mappedBy = "task")
+    private List<PlayerSubmission> submissionList = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -50,4 +53,8 @@ public class Task {
         this.description = description;
     }
 
+    public void addSubmission(PlayerSubmission submission){
+        this.submissionList.add(submission);
+        submission.setTask(this);
+    }
 }

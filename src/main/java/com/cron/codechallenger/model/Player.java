@@ -17,7 +17,8 @@ public class Player {
     private String nickname;
     @Column(name="PLA_PASSWORD")
     private String password;
-
+    @OneToMany(mappedBy = "player")
+    private List<PlayerSubmission> playerSubmissionList = new ArrayList<>();
 
     public Player() {
     }
@@ -27,6 +28,7 @@ public class Player {
         this.name = name;
         this.nickname = nickname;
         this.password = password;
+        this.playerSubmissionList = playerSubmissionList;
     }
 
     public long getId() {
@@ -61,5 +63,8 @@ public class Player {
         this.password = password;
     }
 
-
+    public void add(PlayerSubmission playerSubmission){
+        this.playerSubmissionList.add(playerSubmission);
+        playerSubmission.setPlayer(this);
+    }
 }
