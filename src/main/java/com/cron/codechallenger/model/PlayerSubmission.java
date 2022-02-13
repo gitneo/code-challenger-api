@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class PlayerSubmission {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "SUB_ID")
     private long id;
 
