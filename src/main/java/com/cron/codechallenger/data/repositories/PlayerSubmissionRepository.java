@@ -1,4 +1,4 @@
-package com.cron.codechallenger.repository;
+package com.cron.codechallenger.data.repositories;
 
 import com.cron.codechallenger.model.PlayerSubmission;
 import org.springframework.data.repository.CrudRepository;
