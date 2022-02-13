@@ -1,7 +1,8 @@
 package com.cron.codechallenger.service;
 
 import com.cron.codechallenger.model.Player;
-import com.cron.codechallenger.repository.PlayerRepository;
+import com.cron.codechallenger.data.projections.PlayerRanking;
+import com.cron.codechallenger.data.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ public class PlayerService {
         list.forEach(listOfPlayers::add);
 
         return listOfPlayers;
+    }
+
+    public List<PlayerRanking> getChallengeRanking(){
+        return this.playerRepository.findTopRankingPlayers();
     }
 
 
