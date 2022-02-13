@@ -22,5 +22,5 @@ public interface PlayerRepository extends CrudRepository<Player,Long> {
                     "ORDER BY top DESC \n" +
                     "LIMIT 3" ,
             nativeQuery = true)
-    List<PlayerRanking> findTop3Players();
+    List<PlayerRanking> findTopRankingPlayers();
 }
