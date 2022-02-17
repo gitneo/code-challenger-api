@@ -1,5 +1,6 @@
 package com.cron.codechallenger.service;
 
+import com.cron.codechallenger.data.projections.PlayerTasks;
 import com.cron.codechallenger.model.Task;
 import com.cron.codechallenger.data.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class TaskService {
 
     public Task getTask(long id){
         return this.taskRepository.findById(id).get();
+    }
+
+    public List<PlayerTasks> getTasksByPlayerId(long id) {
+        return this.taskRepository.findTasksByPlayerId(id);
     }
 }

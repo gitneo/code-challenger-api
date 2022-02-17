@@ -1,5 +1,6 @@
 package com.cron.codechallenger.controller;
 
+import com.cron.codechallenger.data.projections.PlayerTasks;
 import com.cron.codechallenger.model.Task;
 import com.cron.codechallenger.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,22 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @CrossOrigin
     @GetMapping("/tasks")
-    public List<Task> getTask(){
+    public List<Task> getTasks(){
         return this.taskService.getTasks();
     }
 
+    @CrossOrigin
     @PostMapping("/task")
     public void createTask(@RequestBody Task task){
         this.taskService.createTask(task);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/tasks/{id}")
+    public List<PlayerTasks> getTasksById(@PathVariable long id){
+        return this.taskService.getTasksByPlayerId(id);
     }
 }
