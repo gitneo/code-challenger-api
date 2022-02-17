@@ -37,5 +37,9 @@ public class PlayerService {
         return this.playerRepository.findTopRankingPlayers();
     }
 
+    public Player playerLogin(String nickname){
+        return this.playerRepository.findByNickname(nickname).get();
+    }
+
 
 }
