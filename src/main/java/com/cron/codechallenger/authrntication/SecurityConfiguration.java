@@ -46,12 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/task","/api/v1/submission").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
     }
-
 
 
     @Bean
