@@ -7,12 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlayerRepository extends CrudRepository<Player,Long> {
     @Query(value = "SELECT \n" +
-                    "  pla_id,\n" +
-                    "  pla_name,\n" +
+                    "  pla_id id,\n" +
+                    "  pla_name name,\n" +
                     "  pla_password,\n" +
                     "\tpla_nickname,\n" +
                     "\tcount(*) top\n" +
@@ -23,4 +24,5 @@ public interface PlayerRepository extends CrudRepository<Player,Long> {
                     "LIMIT 3" ,
             nativeQuery = true)
     List<PlayerRanking> findTopRankingPlayers();
+    Optional<Player> findByNickname(String nickname);
 }
