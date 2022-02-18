@@ -1,6 +1,7 @@
 package com.cron.codechallenger.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="SUBMISSION")
@@ -24,6 +25,7 @@ public class PlayerSubmission {
 
     @Column(name="SUB_STATUS")
     private boolean status;
+
 
     public PlayerSubmission() {
     }
