@@ -19,6 +19,7 @@ public interface PlayerRepository extends CrudRepository<Player,Long> {
                     "\tcount(*) top\n" +
                     "FROM  player,submission\n" +
                     "WHERE pla_id = sub_player_id\n" +
+                    "AND   sub_status = 1\n" +
                     "GROUP BY pla_id,pla_nickname\n" +
                     "ORDER BY top DESC \n" +
                     "LIMIT 3" ,
