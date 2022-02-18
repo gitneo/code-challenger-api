@@ -9,8 +9,11 @@ import com.cron.codechallenger.service.PlayerSubmissionService;
 import com.cron.codechallenger.service.TaskService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,28 +32,37 @@ public class SubmissionController {
     }
 
     @CrossOrigin
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/submission")
-    public void createSubmission(@RequestBody PlayerSubmission submission){
+    public ResponseEntity createSubmission(@RequestBody PlayerSubmission submission){
 
-        Task task =  taskService.getTask(submission.getTask().getId());
-        Player player = playerService.getPlayer(submission.getPlayer().getId());
+        if(submission != null){
+            Task task =  taskService.getTask(submission.getTask().getId());
+            Player player = playerService.getPlayer(submission.getPlayer().getId());
+            submission.setTask(task);
+            submission.setPlayer(player);
+        }
 
 
-        submission.setTask(task);
-        submission.setPlayer(player);
+        try{
+            this.playerSubmissionService.createSubmission(submission);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        this.playerSubmissionService.createSubmission(submission);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @CrossOrigin
-    @GetMapping("/sub/viewSubmission")
-    public List<PlayerSubmission> getSubmissions(){
-        return this.playerSubmissionService.getAllSubmissions();
-    }
 
     @CrossOrigin
     @PostMapping("/submission/result")
-    public String getSubmissionResult(@RequestBody Code script) throws UnirestException {
-        return this.playerSubmissionService.getChallengerResult(script);
+    public ResponseEntity getSubmissionResult(@RequestBody Code script) {
+        String result = "";
+        try{
+            result = this.playerSubmissionService.getChallengerResult(script);
+        }catch(UnirestException e){
+            return new ResponseEntity(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        return new ResponseEntity(result,null,HttpStatus.OK);
     }
 }
