@@ -17,7 +17,7 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
-    public void createPlayer(Player player){
+    public void createPlayer(Player player) throws Exception{
         playerRepository.save(player);
     }
 
